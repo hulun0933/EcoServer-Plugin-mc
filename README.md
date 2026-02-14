@@ -2,7 +2,7 @@
 ### Adaptive Performance Engine for Minecraft Paper Servers
 
 > EcoServer is not a lag cleaner.  
-> It is an adaptive performance control engine designed for high-load servers.
+> It is an adaptive performance control engine for high-load servers.
 
 [中文文档 / Chinese Version](README.zh-CN.md)
 
@@ -10,33 +10,25 @@
 
 ## 🚀 Vision
 
-Most optimization plugins react only after TPS drops.
+Most optimization plugins react **after** TPS drops.  
+EcoServer focuses on proactive load management, aiming to:
 
-EcoServer focuses on predictive load modeling and adaptive control.  
-Instead of brute-force entity wipes, it dynamically adjusts server behavior
-based on real-time performance conditions.
-
-The goal is simple:
-
-- Prevent performance collapse
-- Minimize invisible computational waste
+- Predict server load trends
+- Adapt server behavior dynamically
+- Reduce invisible computational waste
 - Protect player experience
 - Maintain extremely low internal overhead
 
+Instead of brute-force entity wipes, EcoServer introduces a unified adaptive control model.
+
 ---
 
-# 🧠 Core Model — LoadScore
+## 🧠 Core Model — LoadScore
 
-LoadScore is the central performance index of EcoServer.
+LoadScore is the central performance index of EcoServer.  
+It aggregates multiple runtime metrics into a single score, which drives all optimization decisions.
 
-All optimization decisions are derived from this unified load evaluation model.
-
-Rather than relying on single thresholds (e.g., entity count > X),
-EcoServer aggregates multiple runtime factors into one adaptive score.
-
-## Conceptual Formula
-
-
+### Conceptual Formula
 
 LoadScore = α(TPS Impact)
 + β(Entity Density)
@@ -45,33 +37,22 @@ LoadScore = α(TPS Impact)
 + ε(Player Density)
 
 
-## Metric Breakdown
+### Metric Explanation
 
-**TPS Impact**  
-Deviation from ideal 20 TPS, including moving average trend analysis.
+- **TPS Impact** – Deviation from ideal 20 TPS, using moving average trends.  
+- **Entity Density** – Weighted count of entities (items, mobs, tile entities).  
+- **Chunk Activity** – Loaded and ticking chunk counts.  
+- **Memory Pressure** – Heap usage ratio and GC pause time.  
+- **Player Density** – Player clustering and hotspot intensity.  
 
-**Entity Density**  
-Weighted count of entities (items, mobs, tile entities).
-
-**Chunk Activity**  
-Number of loaded and ticking chunks.
-
-**Memory Pressure**  
-Heap usage ratio combined with GC pause duration.
-
-**Player Density**  
-Clustering intensity and hotspot distribution.
-
-Each coefficient (α β γ δ ε) is configurable,
-allowing fine-tuning for different server environments.
-
-LoadScore becomes the single driving signal of the entire adaptive engine.
+Each coefficient (α, β, γ, δ, ε) is configurable.  
+LoadScore enables multi-factor adaptive control rather than single-threshold reactions.
 
 ---
 
-# 🧭 Adaptive State Engine
+## 🧭 Adaptive State Engine
 
-Based on LoadScore, EcoServer transitions between performance states:
+EcoServer interprets LoadScore into adaptive states:
 
 | State     | Score Range | Behavior |
 |-----------|------------|----------|
@@ -80,86 +61,87 @@ Based on LoadScore, EcoServer transitions between performance states:
 | STRESS    | 50–75      | Adaptive entity control |
 | CRITICAL  | 75+        | Intelligent cleanup |
 
-Hysteresis control is applied to prevent rapid oscillation between states.
+Hysteresis is applied to prevent rapid oscillation between states.
 
 ---
 
-# 🏗 System Architecture
+## 🏗 Architecture
 
-EcoServer follows a three-layer control architecture.
+EcoServer uses a three-layer control structure:
 
-## 1️⃣ Sensor Layer
-Collects runtime metrics and computes LoadScore.
+### 1️⃣ Sensor Layer
+- Collect runtime metrics
+- Calculate LoadScore
 
-## 2️⃣ Strategy Layer
-Interprets LoadScore and determines system state.
+### 2️⃣ Strategy Layer
+- Interpret LoadScore
+- Determine system state
 
-## 3️⃣ Executor Layer
-Applies adaptive optimization strategies dynamically, including:
-
-- Intelligent item cleanup
-- Entity sleep management
-- Spawner optimization
-- Adaptive view-distance control (experimental)
-
----
-
-# 🧊 Planned Capabilities
-
-- TPS moving average monitoring
-- Intelligent value-aware item cleanup
-- Entity lifecycle throttling
-- JVM GC monitoring via JMX
-- Player heatmap-based optimization
-- Spark profiling integration
+### 3️⃣ Executor Layer
+- Apply adaptive optimization strategies:
+  - Intelligent item cleanup
+  - Entity sleep management
+  - Spawner nerf system
+  - Adaptive view-distance control (experimental)
 
 ---
 
-# 🛠 Target Platform
+## 🧊 Planned Features
 
-- Paper (Primary)
-- Purpur
-- Pufferfish
+- TPS moving average monitoring  
+- Intelligent item cleanup  
+- Entity sleep system  
+- Spawner nerf optimization  
+- JVM GC monitoring (JMX-based)  
+- Heatmap-based optimization (planned)  
+- Spark profiling integration (planned)  
+
+---
+
+## 🛠 Target Platform
+
+- Paper (Primary)  
+- Purpur  
+- Pufferfish  
 
 EcoServer is designed specifically for optimized server forks.
 
 ---
 
-# 📅 Development Roadmap
+## 📅 Roadmap
 
-## v0.1 – Foundation
-- LoadScore implementation
-- State controller
-- Intelligent cleanup
-- `/eco health` command
+### v0.1 – Foundation
+- LoadScore implementation  
+- State controller  
+- Intelligent item cleanup  
+- `/eco health` command  
 
-## v0.2 – Adaptive
-- Entity sleep system
-- GC monitoring
-- Spawner optimization
+### v0.2 – Adaptive
+- Entity sleep system  
+- JVM GC monitoring  
+- Spawner optimization  
 
-## v0.3 – Predictive
-- Heatmap engine
-- World-specific rules
-- Spark integration
+### v0.3 – Predictive
+- Heatmap analysis  
+- World-specific strategies  
+- Spark integration  
 
-## v1.0 – Production Stable
-- Large-scale benchmarking
-- Public API exposure
-- Stability validation
+### v1.0 – Production Stable
+- Large-scale benchmarking  
+- Public API  
+- Enterprise-grade stability certification  
 
 ---
 
-# 🔬 Philosophy
+## 🔬 Philosophy
 
-EcoServer is not another cleanup plugin.
-
+EcoServer is **not another cleanup plugin**.  
 It aims to become:
 
 > A server-level adaptive performance middleware.
 
 ---
 
-# 📄 License
+## 📄 License
 
-MIT License
+To be decided (MIT recommended)
